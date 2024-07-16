@@ -15,6 +15,7 @@ export class LinkedList {
         temp = temp.next
       }
       temp.next = new Node(value, null)
+      this.tail = temp.next
     }
     this.size++
   }
@@ -27,7 +28,7 @@ export class LinkedList {
   at(index) {
     let i = 0
     let current = this.head
-    while (i <= index) {
+    while (i < index) {
       current = current.next
       i++
     }
@@ -35,7 +36,12 @@ export class LinkedList {
   }
 
   pop() {
-    this.tail = null
+    let current = this.head
+    for (let i=0; i<this.size-2; i++) {
+      current = current.next
+    }
+    this.tail = current
+    this.tail.next = null
     if (this.size > 0) this.size--
   }
 
