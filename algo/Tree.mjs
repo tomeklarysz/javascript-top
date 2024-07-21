@@ -90,6 +90,36 @@ export class Tree {
       }
     }
   }
+
+  find(value) {
+    let current = this.root
+    while (current.value !== value) {
+      if (current.left === null && current.right === null) {
+        console.log(`${value} is not in bst`)
+        return
+      }
+      if (value < current.value) {
+        current = current.left
+      } else {
+        current = current.right
+      }
+    }
+    return current
+  }
+
+  levelOrder(callback = (node, queue, result) => {
+    if (node.left !== null) queue.push(node.left)
+    if (node.right !== null) queue.push(node.right)
+    result.push(node.value)
+  }) {
+    let result = []
+    let queue = []
+    queue.push(this.root)
+    while (queue.length !== 0) {
+      callback(queue.shift(), queue, result)
+    }
+    return result
+  }
 }
 
 class Node {
@@ -126,5 +156,7 @@ tree.delete(9)
 prettyPrint(tree.root)
 // tree.delete(4)
 // tree.delete(8)
-tree.delete(67)
+// tree.delete(67)
+console.log(tree.find(4))
 prettyPrint(tree.root)
+console.log(tree.levelOrder())
