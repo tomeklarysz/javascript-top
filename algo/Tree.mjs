@@ -120,6 +120,42 @@ export class Tree {
     }
     return result
   }
+
+  inOrder(callback = (node, result) => {
+    if (node !== null) {
+      callback(node.left, result)
+      result.push(node.value)
+      callback(node.right, result)
+    }
+  }) {
+    let result = []
+    callback(this.root, result)
+    return result
+  }
+
+  preOrder(callback = (node, result) => {
+    if (node !== null) {
+      result.push(node.value)
+      callback(node.left, result)
+      callback(node.right, result)
+    }
+  }) {
+    let result = []
+    callback(this.root, result)
+    return result
+  }
+
+  postOrder(callback = (node, result) => {
+    if (node !== null) {
+      callback(node.left, result)
+      callback(node.right, result)
+      result.push(node.value)
+    }
+  }) {
+    let result = []
+    callback(this.root, result)
+    return result
+  }
 }
 
 class Node {
@@ -160,3 +196,6 @@ prettyPrint(tree.root)
 console.log(tree.find(4))
 prettyPrint(tree.root)
 console.log(tree.levelOrder())
+console.log(tree.inOrder())
+console.log(tree.preOrder())
+console.log(tree.postOrder())
