@@ -42,6 +42,54 @@ export class Tree {
       }
     }
   }
+
+  delete(value) {
+    let current = this.root
+    let leafParent = current
+    while (true) {
+      if (value === current.value) {
+        // leaf
+        if (current.left === null && current.right === null) {
+          if (value > leafParent) {
+            leafParent.right = null
+          } else {
+            leafParent.left = null
+          }
+        // two children
+        } else if (current.left !== null && current.right !== null) {
+          let parent = current
+          let newCurrent = current.right
+          while (newCurrent.left !== null) {
+            parent = newCurrent
+            newCurrent = newCurrent.left
+          }
+          if (parent === current) {
+            current.value = newCurrent.value
+            current.right = newCurrent.right
+          } else {
+            current.value = newCurrent.value
+            parent.left = newCurrent.right
+          }
+        // one child
+        } else {
+          if (current.left !== null) {
+            current.value = current.left.value
+            current.left = null
+          } else {
+            current.value = current.right.value
+            current.right = null
+          }
+        }
+        return
+      }
+      leafParent = current
+      if (value < current.value) {
+        current = current.left
+      } else {
+        current = current.right
+      }
+    }
+  }
 }
 
 class Node {
@@ -71,4 +119,12 @@ let tree = new Tree(array)
 prettyPrint(tree.root)
 console.log();
 tree.insert(10)
+prettyPrint(tree.root)
+tree.delete(10)
+prettyPrint(tree.root)
+tree.delete(9)
+prettyPrint(tree.root)
+// tree.delete(4)
+// tree.delete(8)
+tree.delete(67)
 prettyPrint(tree.root)
