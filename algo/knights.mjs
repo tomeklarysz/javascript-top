@@ -9,10 +9,10 @@ class Node {
 }
 
 const knightMoves = (start, end) => {
-  let potentialLists = possibleMoves(start)
-  for (let list of potentialLists) {
-    BFS(list, end)
-  }
+  let result = new LinkedList()
+  result.append(start)
+  BFS([start], end, result)
+  return result
 
 
 }
@@ -40,9 +40,21 @@ const possibleMoves = (cell) => {
   return result
 }
 
-const BFS = (list, end) => {
-  if (list.tail === end) return
-  for (let l of list) {
-    BFS()
+const BFS = (list, end, path) => {
+  for (let entry of list) {
+    if (entry === end) {
+      // path.append(entry)
+      return path
+    }
+    // BFS(possibleMoves(entry), end, path)
+  }
+  for (let entry of list) {
+    path.pop()
+    path.append(entry)
+    BFS(possibleMoves(entry), end, path)
   }
 }
+
+let test = knightMoves([0,0],[3,3])
+console.log(test)
+console.log(test.toString())
