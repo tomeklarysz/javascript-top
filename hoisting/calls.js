@@ -37,3 +37,18 @@ getYear(1990)       // ReferenceError: Cannot access 'getYear' before initializa
 const getYear = year => {
   console.log(year)
 }
+
+
+// Note - variable initializations are not hoisted,
+// only variable declarations are hoisted:
+
+var x;
+console.log(x);  // outputs 'undefined' since initialiation is not hoisted
+x = 23;
+
+// Note - to avoid hoisting, you can run js in strict mode
+// by using 'use strict' on top of the code:
+
+"use strict"
+y = 23;     // gives an error since 'y' is not declared
+var y;
